@@ -1,24 +1,19 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import { RAPID_API_KEY } from "@env";
 
-// const rapidApiKey = RAPID_API_KEY;
-
-const useFetch = (endPoint, query) => {
+const useFetch = (endpoint, query) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const options = {
     method: "GET",
-    url: `https://jsearch.p.rapidapi.com/${endPoint}`,
+    url: `https://jsearch.p.rapidapi.com/${endpoint}`,
     headers: {
       "X-RapidAPI-Key": "b1aaad34e0mshdb071141b8abef0p14d67ajsn681ba65a784f",
       "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
     },
-    params: {
-      query: { ...query },
-    },
+    params: { ...query },
   };
 
   const fetchData = async () => {
@@ -31,7 +26,7 @@ const useFetch = (endPoint, query) => {
       setIsLoading(false);
     } catch (error) {
       setError(error);
-      alert("There was a problem!");
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
@@ -41,12 +36,12 @@ const useFetch = (endPoint, query) => {
     fetchData();
   }, []);
 
-  const reFetch = () => {
+  const refetch = () => {
     setIsLoading(true);
     fetchData();
   };
 
-  return { data, isLoading, error, reFetch };
+  return { data, isLoading, error, refetch };
 };
 
 export default useFetch;
